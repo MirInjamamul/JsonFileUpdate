@@ -6,7 +6,6 @@ with jsonlines.open('./data/output_anypage_10.jsonl') as reader:
    data = []
 
    for obj in reader:
-      # print(obj)
 
       if obj["Topic"] != "finance":
          print("Topic Name is not Finance")
@@ -18,7 +17,11 @@ with jsonlines.open('./data/output_anypage_10.jsonl') as reader:
          print("SearchKey not exist in JSON data")
          searchkeyVal = obj["Title"]
          obj["Title"] = ""
+         textKeyVal = obj["Text"]
+         obj.pop('Text')
          obj['SearchKey'] = searchkeyVal
+         obj['Text'] = textKeyVal
+
       data.append(obj)
 
 with jsonlines.open('./data/output_anypage_10_fixed.jsonl', 'w') as writer:
